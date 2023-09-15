@@ -4,6 +4,22 @@ Garage project for **private purposes**.
 Provides reusable workflows for GitHub Actions.
 
 
+## How to use in "production"? 👨‍💼 👩‍💼
+
+
+### Settings
+
+```yaml
+# [...]
+
+jobs:
+  check-job:
+    uses: IanStorm/reusable-workflows/.github/workflows/settings.yml
+
+# [...]
+```
+
+
 ## How to develop? 👨‍💻 👩‍💻
 
 Make sure you have installed *Docker* 🐳 and *Visual Studio Code* ♾️.
