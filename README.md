@@ -7,6 +7,23 @@ Provides reusable workflows for GitHub Actions.
 ## How to use in "production"? 👨‍💼 👩‍💼
 
 
+### Docker
+```yaml
+# [...]
+
+jobs:
+  docker-job:
+    uses: IanStorm/reusable-workflows/.github/workflows/docker.yml
+    with:
+      dockerhub_username: some user
+      platform: linux/amd64,linux/arm/v7 # 👈 optional
+    secrets:
+      dockerhub_token: some token
+
+# [...]
+```
+
+
 ### Settings
 
 ```yaml
