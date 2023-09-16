@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: Settings
+
+on:
+  workflow_call:
+
+jobs:
+  check-job:
+    name: In sync?
+    runs-on: ubuntu-22.04
+    if: github.event_name == 'push'
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Docker Pull
+        run: docker pull ianstorm/dev-settings-sync
+
+      - name: Docker Run check
+        run: docker run -t -v ${PWD}/:/mnt/ ianstorm/dev-settings-sync check

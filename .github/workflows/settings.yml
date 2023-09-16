@@ -1,22 +1,18 @@
+#
+# 🛑 Think twice before editing this file! 🛑
+# ⚠️ This file is maintained via https://github.com/IanStorm/dev-settings-sync. ⚠️
+#
+
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 
-name: Settings
+name: Settings 🔄️
 
 on:
-  workflow_call:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
-  check-job:
-    name: In sync?
-    runs-on: ubuntu-22.04
-    if: github.event_name == 'push'
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Docker Pull
-        run: docker pull ianstorm/dev-settings-sync
-
-      - name: Docker Run check
-        run: docker run -t -v ${PWD}/:/mnt/ ianstorm/dev-settings-sync check
+  Settings:
+    uses: IanStorm/reusable-workflows/.github/workflows/_settings.yml@main
