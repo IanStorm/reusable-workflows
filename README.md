@@ -13,7 +13,7 @@ Provides reusable workflows for GitHub Actions.
 
 jobs:
   docker-job:
-    uses: IanStorm/reusable-workflows/.github/workflows/docker.yml
+    uses: IanStorm/reusable-workflows/.github/workflows/_docker.yml@main
     with:
       dockerhub_username: some user
       platform: linux/amd64,linux/arm/v7 # 👈 optional
@@ -31,7 +31,7 @@ jobs:
 
 jobs:
   check-job:
-    uses: IanStorm/reusable-workflows/.github/workflows/settings.yml
+    uses: IanStorm/reusable-workflows/.github/workflows/_settings.yml@main
 
 # [...]
 ```
