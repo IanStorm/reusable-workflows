@@ -32,8 +32,6 @@ jobs:
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
-        with:
-          platforms: ${{ inputs.platforms }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -47,8 +45,9 @@ jobs:
       - name: Docker buildx and push
         uses: docker/build-push-action@v6
         env:
-          IMAGE_ID: ${{ github.repository }}
+          IMAGE_ID: ${{ github.event.repository.name }}
           VERSION: ${{ github.ref_name == inputs.default_branch && 'latest' || github.sha }}
         with:
+          platforms: ${{ inputs.platforms }}
           push: true
           tags: ${{ env.IMAGE_ID }}:${{ env.VERSION }}
