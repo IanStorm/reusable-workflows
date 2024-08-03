@@ -46,7 +46,7 @@ jobs:
         uses: docker/build-push-action@v6
         env:
           APP: ${{ github.event.repository.name }}
-          USER: $${{ inputs.dockerhub_username }}
+          USER: ${{ inputs.dockerhub_username }}
           VERSION: ${{ github.ref_name == inputs.default_branch && 'latest' || github.sha }}
         with:
           platforms: ${{ inputs.platforms }}
