@@ -45,9 +45,10 @@ jobs:
       - name: Docker buildx and push
         uses: docker/build-push-action@v6
         env:
-          IMAGE_ID: ${{ github.event.repository.name }}
+          APP: ${{ github.event.repository.name }}
+          USER: $${{ inputs.dockerhub_username }}
           VERSION: ${{ github.ref_name == inputs.default_branch && 'latest' || github.sha }}
         with:
           platforms: ${{ inputs.platforms }}
           push: true
-          tags: ${{ env.IMAGE_ID }}:${{ env.VERSION }}
+          tags: ${{ env.USER }}/${{ env.APP }}:${{ env.VERSION }}
