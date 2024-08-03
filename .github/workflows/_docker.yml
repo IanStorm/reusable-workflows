@@ -5,12 +5,16 @@ name: Docker
 on:
   workflow_call:
     inputs:
+      default_branch:
+        default: main
+        required: false
+        type: string
       dockerhub_username:
         required: true
         type: string
-      platform:
+      platforms:
         default: linux/amd64,linux/arm/v7
-        description: Target platform for build
+        description: Target platforms for build, comma separated
         required: false
         type: string
     secrets:
@@ -39,27 +43,12 @@ jobs:
           password: ${{ secrets.dockerhub_token }}
 
       - name: Docker buildx and push
-        run: |
-          IMAGE_ID=${{ github.repository }}
-
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-          # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-          # Use Docker `latest` tag convention
-          [ "$VERSION" == "main" ] && VERSION=latest
-
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-
-          docker buildx build \
-            --platform ${{ inputs.platform }} \
-            --output "type=image,push=true" \
-            --tag $IMAGE_ID:$VERSION \
-            --file Dockerfile \
-            .
+        uses: docker/build-push-action@v6
+        env:
+          APP: ${{ github.event.repository.name }}
+          USER: ${{ inputs.dockerhub_username }}
+          VERSION: ${{ github.ref_name == inputs.default_branch && 'latest' || github.sha }}
+        with:
+          platforms: ${{ inputs.platforms }}
+          push: true
+          tags: ${{ env.USER }}/${{ env.APP }}:${{ env.VERSION }}

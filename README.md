@@ -16,7 +16,8 @@ jobs:
     uses: IanStorm/reusable-workflows/.github/workflows/_docker.yml@main
     with:
       dockerhub_username: some user
-      platform: linux/amd64,linux/arm/v7 # 👈 optional
+      platforms: linux/amd64,linux/arm/v7 # 👈 optional
+      default_branch: main # 👈 optional
     secrets:
       dockerhub_token: some token
 
