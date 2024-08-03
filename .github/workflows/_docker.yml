@@ -48,7 +48,7 @@ jobs:
         uses: docker/build-push-action@v6
         env:
           IMAGE_ID: ${{ github.repository }}
-          VERSION: ${{ github.ref == 'refs/heads/'inputs.default_branch && 'latest' || github.sha }}
+          VERSION: ${{ github.ref_name == inputs.default_branch && 'latest' || github.sha }}
         with:
           push: true
           tags: ${{ env.IMAGE_ID }}:${{ env.VERSION }}
