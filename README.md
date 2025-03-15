@@ -8,6 +8,7 @@ Provides reusable workflows for GitHub Actions.
 
 
 ### Docker
+
 ```yaml
 # [...]
 
@@ -20,6 +21,19 @@ jobs:
       default_branch: main # 👈 optional
     secrets:
       dockerhub_token: some token
+
+# [...]
+```
+
+
+### Node.js
+
+```yaml
+# [...]
+
+jobs:
+  node-job:
+    uses: IanStorm/reusable-workflows/.github/workflows/_node.yml@main
 
 # [...]
 ```
