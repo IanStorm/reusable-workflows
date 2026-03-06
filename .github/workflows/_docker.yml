@@ -43,7 +43,7 @@ jobs:
           password: ${{ secrets.dockerhub_token }}
 
       - name: Docker buildx and push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         env:
           APP: ${{ github.event.repository.name }}
           USER: ${{ inputs.dockerhub_username }}
